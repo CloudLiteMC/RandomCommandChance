@@ -1,0 +1,5 @@
+name: CommandChance
+version: '${project.version}'
+main: com.burchard36.commandchance.CommandChance
+api-version: 1.17
+description: Allows you to run a command with a chance parameter
