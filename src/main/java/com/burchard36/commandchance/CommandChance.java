@@ -26,7 +26,7 @@ public final class CommandChance extends JavaPlugin implements Api {
                 "/commandchance <chance> <your command>",
                 new ArrayList<>())
                 .onConsoleSender((consoleSent) -> {
-                    if (consoleSent.args().size() >= 2) {
+                    if (consoleSent.args().size() < 2) {
                         consoleSent.getConsoleSender().sendMessage(Component.text(convert("&c/commandchance <chance> <your command>")));
                         return;
                     }
