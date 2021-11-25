@@ -1,2 +1,3 @@
-# RandomCommandChance
-Ability to run commands on a percentage base chance
+# Welcome to my simple plugin!
+
+*Have you ever wanted 
