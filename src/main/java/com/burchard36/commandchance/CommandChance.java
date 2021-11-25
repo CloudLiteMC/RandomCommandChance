@@ -1,24 +1,22 @@
 package com.burchard36.commandchance;
 
-import com.burchard36.Api;
 import com.burchard36.ApiLib;
-import com.burchard36.Logger;
 import com.burchard36.command.ApiCommand;
 import net.kyori.adventure.text.Component;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import static com.burchard36.ApiLib.convert;
 
-public final class CommandChance extends JavaPlugin implements Api {
+public final class CommandChance extends JavaPlugin {
 
     private Random random;
 
     @Override
     public void onEnable() {
-        ApiLib lib = new ApiLib().initializeApi(this);
         this.random = new Random();
 
         final ApiCommand command = new ApiCommand("commandchance",
@@ -30,7 +28,6 @@ public final class CommandChance extends JavaPlugin implements Api {
                         consoleSent.getConsoleSender().sendMessage(Component.text(convert("&c/commandchance <chance> <your command>")));
                         return;
                     }
-
 
                     double chance;
                     try {
@@ -45,17 +42,12 @@ public final class CommandChance extends JavaPlugin implements Api {
                         return;
                     }
 
-                    if (!(this.random.nextLong() <= chance)) {
-                        Logger.debug("Chance failed for command!", this);
-                        return;
-                    }
+                    if (!(this.random.nextDouble() <= chance)) return;
 
-                    Logger.debug("Chance passed for command! Executing now. . .", this);
-
-                    consoleSent.args().remove(0);
 
                     StringBuilder commandString = new StringBuilder();
                     for (final String cmd : consoleSent.args()) {
+                        if (Objects.equals(cmd, String.valueOf(chance))) continue;
                         commandString.append(cmd).append(" ");
                     }
 
@@ -67,11 +59,5 @@ public final class CommandChance extends JavaPlugin implements Api {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-    }
-
-    @Override
-    public boolean isDebug() {
-        return true;
     }
 }
